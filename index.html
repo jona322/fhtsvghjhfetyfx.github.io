@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>最适合去中国哪里旅行 · 30 个目的地测试</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #2b241c;
+    --ink-soft: #6f6152;
+    --ink-faint: #9a8c7c;
+    --line: #e6dccd;
+    --paper: #fffdf9;
+    --accent: #9a6f45;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background-color: #f4efe6;
+    background-image:
+      radial-gradient(circle at 12% 16%, rgba(154, 111, 69, 0.11), transparent 38%),
+      radial-gradient(circle at 88% 80%, rgba(63, 91, 78, 0.09), transparent 44%),
+      radial-gradient(circle at 50% -12%, rgba(255, 255, 255, 0.95), transparent 58%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 18px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .app-wrapper {
+    width: 100%;
+    max-width: 940px;
+    background: rgba(255, 253, 249, 0.76);
+    -webkit-backdrop-filter: blur(22px) saturate(1.08);
+    backdrop-filter: blur(22px) saturate(1.08);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 40px;
+    padding: 46px 52px 42px;
+    box-shadow:
+      0 46px 90px -34px rgba(60, 45, 30, 0.26),
+      0 12px 32px -18px rgba(60, 45, 30, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: Georgia, "Noto Serif SC", "Songti SC", "SimSun", serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.22;
+    color: var(--ink);
+  }
+
+  .subhead {
+    margin-top: 14px;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .subhead::before {
+    content: "";
+    width: 26px;
+    height: 1.5px;
+    background: var(--accent);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .progress-area {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin: 34px 0 28px;
+  }
+
+  .progress-bar-bg {
+    flex: 1;
+    height: 5px;
+    background: #e9e0d2;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #c2925f, #7d5732);
+    border-radius: 99px;
+    transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .step-count {
+    font-family: Georgia, "Noto Serif SC", serif;
+    font-size: 0.86rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .step-count b { color: var(--ink); font-size: 1.1rem; font-weight: 700; }
+
+  .question-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 36px 40px 32px;
+    box-shadow: 0 24px 48px -34px rgba(60, 45, 30, 0.32);
+    animation: rise 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-index {
+    font-family: Georgia, "Noto Serif SC", serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .question-text {
+    font-family: Georgia, "Noto Serif SC", "Songti SC", "SimSun", serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 26px;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+    padding: 17px 19px;
+    background: #fcfaf5;
+    border: 1.5px solid #eae1d3;
+    border-radius: 18px;
+    font-family: inherit;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.18s ease, background 0.18s ease,
+                transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .option-btn:hover {
+    border-color: #cdb697;
+    background: #faf5ec;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px -16px rgba(60, 45, 30, 0.6);
+  }
+
+  .option-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .option-btn.selected {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, #fdf8f1, #f7eee0);
+    box-shadow: 0 0 0 3px rgba(154, 111, 69, 0.13);
+  }
+
+  .option-letter {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    border: 1.5px solid #e2d6c5;
+    font-family: Georgia, serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent);
+    transition: all 0.18s ease;
+  }
+
+  .option-btn.selected .option-letter {
+    background: linear-gradient(135deg, #9a6f45, #7d5732);
+    border-color: #7d5732;
+    color: #fff;
+    box-shadow: 0 4px 10px -4px rgba(125, 87, 50, 0.7);
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 13px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border-radius: 99px;
+    padding: 16px 34px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-ghost {
+    flex: 0 0 auto;
+    background: transparent;
+    border-color: var(--line);
+    color: var(--ink-soft);
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    border-color: #cdb697;
+    background: #faf6ef;
+    color: var(--ink);
+  }
+
+  .btn:disabled { opacity: 0.38; cursor: not-allowed; }
+
+  /* 结果页 */
+  .result-section {
+    text-align: center;
+    padding: 14px 6px 8px;
+    animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+
+  .result-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid #e5d8c6;
+    background: rgba(255, 253, 249, 0.7);
+    padding: 9px 24px;
+    border-radius: 99px;
+    margin-bottom: 30px;
+  }
+
+  .result-place {
+    font-family: Georgia, "Noto Serif SC", "Songti SC", "SimSun", serif;
+    font-size: 3.6rem;
+    font-weight: 700;
+    line-height: 1.14;
+    letter-spacing: 0.02em;
+    margin-bottom: 22px;
+    background: linear-gradient(135deg, #5c4026 0%, #9a6f45 55%, #c2925f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .result-divider {
+    width: 58px;
+    height: 2px;
+    margin: 0 auto 28px;
+    background: var(--accent);
+    opacity: 0.45;
+    border-radius: 2px;
+  }
+
+  .result-desc {
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 1.12rem;
+    line-height: 1.95;
+    color: #4f4337;
+    letter-spacing: 0.01em;
+    padding: 0 8px;
+  }
+
+  .result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 32px 0 36px;
+  }
+
+  .meta-chip {
+    padding: 9px 24px;
+    border-radius: 99px;
+    background: #fff;
+    border: 1px solid var(--line);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+
+  .restart-btn {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 16px 46px;
+    border-radius: 99px;
+    border: 1.5px solid #d9c8b2;
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .restart-btn:hover {
+    background: #faf5ec;
+    border-color: #c3a884;
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px -18px rgba(60, 45, 30, 0.6);
+  }
+
+  .small-note {
+    margin-top: 26px;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 14px 12px; }
+    .app-wrapper { padding: 30px 22px; border-radius: 30px; }
+    h1 { font-size: 1.72rem; }
+    .subhead { font-size: 0.9rem; }
+    .progress-area { margin: 26px 0 22px; gap: 16px; }
+    .question-card { padding: 26px 20px 24px; border-radius: 22px; }
+    .question-text { font-size: 1.22rem; margin-bottom: 20px; }
+    .options-grid { grid-template-columns: 1fr; gap: 10px; }
+    .option-btn { padding: 15px 16px; font-size: 0.94rem; border-radius: 15px; }
+    .nav-buttons { flex-direction: column-reverse; gap: 10px; }
+    .btn { padding: 15px 26px; width: 100%; }
+    .result-place { font-size: 2.4rem; }
+    .result-desc { font-size: 1rem; line-height: 1.85; }
+  }
+</style>
+</head>
+<body>
+<div class="app-wrapper" id="app"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ==================== 30 个目的地 ==================== */
+  const destinations = [
+    { name: "北京", description: "故宫的红墙、长城的蜿蜒、胡同里的烟火气——历史与现代在此交汇。", tags: ["历史", "都市", "文化"] },
+    { name: "上海", description: "外滩的万国建筑、陆家嘴的摩天楼、梧桐树下的咖啡馆，魔都永远充满活力。", tags: ["摩登", "美食", "购物"] },
+    { name: "西安", description: "兵马俑的震撼，城墙上的夕阳，回民街的热闹，梦回长安。", tags: ["历史", "美食", "古迹"] },
+    { name: "成都", description: "熊猫基地、麻辣火锅、盖碗茶，悠闲巴适的慢生活之都。", tags: ["美食", "熊猫", "休闲"] },
+    { name: "重庆", description: "8D 魔幻山城，洪崖洞夜景，穿楼轻轨，还有热辣的火锅。", tags: ["魔幻", "夜景", "火锅"] },
+    { name: "杭州", description: "西湖的柔美，龙井的清香，江南水乡的诗意栖居。", tags: ["自然", "诗意", "茶文化"] },
+    { name: "苏州", description: "园林甲天下，小桥流水人家，听一曲评弹，品一壶碧螺春。", tags: ["园林", "水乡", "雅致"] },
+    { name: "桂林", description: "桂林山水甲天下，漓江泛舟，阳朔西街，如画般的喀斯特风光。", tags: ["山水", "摄影", "户外"] },
+    { name: "云南·大理", description: "苍山洱海，风花雪月，在古城里晒太阳，享受慢时光。", tags: ["浪漫", "湖泊", "慢生活"] },
+    { name: "云南·丽江", description: "玉龙雪山下的古城，石板路、小桥流水，还有纳西文化。", tags: ["古镇", "雪山", "文艺"] },
+    { name: "西藏·拉萨", description: "布达拉宫的神圣，八廓街的转经人，离天空最近的信仰之地。", tags: ["信仰", "高原", "纯净"] },
+    { name: "新疆·喀纳斯", description: "神的后花园，秋季层林尽染，湖水如翡翠，图瓦人村落静谧。", tags: ["秋色", "秘境", "自然"] },
+    { name: "甘肃·敦煌", description: "莫高窟的千年壁画，鸣沙山的月牙泉，大漠孤烟的苍凉。", tags: ["沙漠", "艺术", "历史"] },
+    { name: "福建·厦门", description: "鼓浪屿的琴声，环岛路的海风，文艺小清新的海岛城市。", tags: ["海岛", "文艺", "海鲜"] },
+    { name: "湖南·张家界", description: "阿凡达取景地，石英砂岩峰林，云雾缭绕如仙境。", tags: ["奇山", "户外", "电影"] },
+    { name: "安徽·黄山", description: "奇松、怪石、云海、温泉，登黄山天下无山。", tags: ["登山", "云海", "摄影"] },
+    { name: "贵州·黔东南", description: "千户苗寨的灯火，侗族大歌，原生态的民族风情。", tags: ["民族", "村落", "人文"] },
+    { name: "山东·青岛", description: "红瓦绿树，碧海蓝天，啤酒海鲜，德式风情老建筑。", tags: ["海滨", "啤酒", "建筑"] },
+    { name: "山西·平遥", description: "保存最完好的古城之一，晋商票号，穿越回明清。", tags: ["古城", "晋商", "厚重"] },
+    { name: "海南·三亚", description: "东方夏威夷，碧海银沙，椰林摇曳，热带度假天堂。", tags: ["热带", "海滨", "度假"] },
+    { name: "南京", description: "六朝古都，梧桐大道，秦淮河的夜色与民国建筑的沉静。", tags: ["古都", "人文", "梧桐"] },
+    { name: "武汉", description: "长江与汉江交汇，樱花、热干面，一座江湖气十足的码头城市。", tags: ["江湖", "樱花", "美食"] },
+    { name: "广州", description: "早茶、骑楼、珠江夜色，烟火气与岭南味道都浓得化不开。", tags: ["美食", "岭南", "都市"] },
+    { name: "哈尔滨", description: "冰雪大世界、中央大街的俄式建筑，冬天最浪漫的北方之城。", tags: ["冰雪", "建筑", "冬季"] },
+    { name: "内蒙古·呼伦贝尔", description: "一望无际的草原，牛羊与星河，最适合自驾的辽阔天地。", tags: ["草原", "自驾", "辽阔"] },
+    { name: "青海·青海湖", description: "高原上的蓝宝石，七月的油菜花与经幡，辽阔而安静。", tags: ["高原", "湖泊", "纯净"] },
+    { name: "四川·稻城亚丁", description: "三座神山、牛奶海与五色海，身体在地狱，眼睛在天堂。", tags: ["雪山", "徒步", "秘境"] },
+    { name: "江西·婺源", description: "油菜花与白墙黛瓦，中国最美的乡村画卷。", tags: ["乡村", "花海", "徽派"] },
+    { name: "广西·北海涠洲岛", description: "火山海岛，日落与海鲜，慢下来的假期。", tags: ["海岛", "火山", "度假"] },
+    { name: "河南·洛阳", description: "十三朝古都，龙门石窟与四月的牡丹，厚重的中原。", tags: ["古都", "石窟", "牡丹"] }
+  ];
+
+  /* ==================== 30 道问题 ==================== */
+  const questions = [
+    {
+      q: "你更向往哪种自然风光？",
+      options: [
+        { text: "巍峨雪山与高原湖泊", scores: { 10:3, 25:3, 26:3, 11:2, 9:2 } },
+        { text: "江南水乡与温婉园林", scores: { 5:3, 6:3, 27:2, 20:1, 3:1 } },
+        { text: "大海、沙滩与椰林", scores: { 19:3, 13:3, 17:3, 28:3 } },
+        { text: "奇峰林立、云雾仙境", scores: { 14:3, 15:3, 7:3, 26:1 } }
+      ]
+    },
+    {
+      q: "对于美食，你的态度是？",
+      options: [
+        { text: "无辣不欢，火锅烧烤", scores: { 3:3, 4:3, 29:1, 21:1 } },
+        { text: "精致清淡，原汁原味", scores: { 5:2, 6:3, 13:2, 22:2 } },
+        { text: "碳水与肉食的狂欢", scores: { 2:3, 18:2, 29:2, 0:2, 23:2 } },
+        { text: "异域香料与民族风味", scores: { 16:3, 10:2, 11:2, 8:2 } }
+      ]
+    },
+    {
+      q: "旅行中你最喜欢做什么？",
+      options: [
+        { text: "拍照打卡，记录风景", scores: { 8:2, 9:2, 13:2, 26:2, 11:2, 25:2, 27:2, 15:2 } },
+        { text: "逛博物馆、看历史遗迹", scores: { 0:3, 2:3, 29:3, 12:3, 20:2, 18:2 } },
+        { text: "沉浸自然，徒步或登山", scores: { 14:3, 15:3, 26:3, 25:2, 11:2 } },
+        { text: "体验当地生活与民俗", scores: { 16:3, 8:2, 9:2, 3:2, 22:1 } }
+      ]
+    },
+    {
+      q: "你偏爱哪种旅行节奏？",
+      options: [
+        { text: "悠闲慢生活，睡到自然醒", scores: { 3:3, 8:3, 5:2, 6:2, 19:2, 13:2 } },
+        { text: "紧凑充实，打卡多个景点", scores: { 0:2, 1:2, 2:2, 4:2, 21:2, 20:2, 23:1 } },
+        { text: "深度体验，一个地方住一周", scores: { 10:2, 11:2, 26:2, 24:2, 16:2, 9:2 } },
+        { text: "说走就走，随心所欲", scores: { 24:3, 25:2, 28:2, 19:2, 4:1 } }
+      ]
+    },
+    {
+      q: "你更喜欢哪种住宿风格？",
+      options: [
+        { text: "设计感精品酒店或民宿", scores: { 1:2, 8:3, 9:2, 13:2, 28:2 } },
+        { text: "古城里的传统客栈", scores: { 9:3, 18:3, 29:1, 20:1, 27:2 } },
+        { text: "国际连锁，舒适省心", scores: { 0:2, 1:3, 22:2, 19:2, 17:1 } },
+        { text: "露营或木屋，贴近自然", scores: { 24:3, 26:2, 11:3, 25:2, 14:2 } }
+      ]
+    },
+    {
+      q: "对于文化遗产，你更感兴趣的是？",
+      options: [
+        { text: "古代宫殿与皇家建筑", scores: { 0:3, 2:2, 29:2, 20:1 } },
+        { text: "石窟壁画与佛教艺术", scores: { 12:3, 29:2, 10:2, 15:1 } },
+        { text: "古城与晋商、徽商文化", scores: { 18:3, 27:2, 9:1, 6:1 } },
+        { text: "少数民族村寨与风情", scores: { 16:3, 8:2, 9:2, 11:2, 10:1 } }
+      ]
+    },
+    {
+      q: "你理想中的旅行同伴是？",
+      options: [
+        { text: "家人，老少皆宜", scores: { 0:2, 1:2, 19:3, 13:2, 17:2, 5:2 } },
+        { text: "恋人，浪漫之旅", scores: { 8:3, 9:3, 19:2, 13:2, 28:2, 25:2 } },
+        { text: "朋友，热闹狂欢", scores: { 4:3, 3:2, 21:2, 22:2, 17:2, 23:2 } },
+        { text: "独自一人，寻找自我", scores: { 10:3, 26:2, 11:2, 25:2, 12:2, 24:2 } }
+      ]
+    },
+    {
+      q: "你最喜欢的季节是？",
+      options: [
+        { text: "春天，花开满城", scores: { 27:3, 21:2, 29:3, 5:2, 20:2, 6:1 } },
+        { text: "夏天，阳光海滩", scores: { 19:3, 17:3, 13:3, 28:3, 24:2 } },
+        { text: "秋天，层林尽染", scores: { 11:3, 26:2, 15:2, 0:2, 24:2 } },
+        { text: "冬天，冰雪温泉", scores: { 23:3, 19:3, 15:1, 0:1, 10:1 } }
+      ]
+    },
+    {
+      q: "你希望旅行照片呈现什么风格？",
+      options: [
+        { text: "大气磅礴的自然风光", scores: { 11:2, 24:3, 26:3, 25:2, 14:2, 15:2, 7:2 } },
+        { text: "人文街拍与市井烟火", scores: { 4:3, 3:2, 22:2, 2:2, 20:1 } },
+        { text: "精致建筑与小众空间", scores: { 1:3, 6:2, 20:2, 17:2, 23:2 } },
+        { text: "星空、花海与浪漫人像", scores: { 8:3, 9:3, 25:2, 27:2, 26:2 } }
+      ]
+    },
+    {
+      q: "如果有一个下午的自由时间，你会？",
+      options: [
+        { text: "去茶馆或咖啡馆发呆", scores: { 3:3, 5:3, 6:2, 22:2, 8:2 } },
+        { text: "逛老街、创意市集", scores: { 9:2, 13:2, 1:2, 4:2, 18:1 } },
+        { text: "徒步、骑行或爬山", scores: { 14:3, 15:3, 26:3, 24:2, 25:2 } },
+        { text: "看一场演出或展览", scores: { 0:2, 1:2, 20:2, 12:2, 29:1 } }
+      ]
+    },
+    {
+      q: "哪种味道最能代表你的旅行记忆？",
+      options: [
+        { text: "麻辣火锅的牛油香", scores: { 3:3, 4:3 } },
+        { text: "海鲜大排档的鲜甜", scores: { 13:3, 17:3, 19:2, 28:3, 22:1 } },
+        { text: "酥油茶与青稞饼", scores: { 10:3, 25:1, 26:1 } },
+        { text: "古城小吃与夜市", scores: { 2:2, 18:2, 29:2, 21:2, 9:1, 20:1 } }
+      ]
+    },
+    {
+      q: "你更喜欢哪种类型的地貌？",
+      options: [
+        { text: "喀斯特峰林与溶洞", scores: { 7:3, 14:2, 16:2, 28:1 } },
+        { text: "丹霞地貌与沙漠戈壁", scores: { 12:3, 11:1, 25:2, 24:1 } },
+        { text: "海滨与岛屿", scores: { 19:3, 13:3, 17:3, 28:3 } },
+        { text: "高山草甸与原始森林", scores: { 26:3, 11:3, 24:2, 15:2, 10:1 } }
+      ]
+    },
+    {
+      q: "对于交通方式，你更喜欢？",
+      options: [
+        { text: "高铁或飞机，快速直达", scores: { 0:2, 1:2, 22:2, 21:2, 20:2, 2:1 } },
+        { text: "自驾，沿途风景自由掌控", scores: { 24:3, 25:3, 26:2, 11:2, 8:2 } },
+        { text: "骑行或徒步，慢慢感受", scores: { 14:2, 15:2, 26:2, 7:2, 27:1 } },
+        { text: "当地公共交通，接地气", scores: { 3:2, 4:2, 22:2, 21:2, 2:1 } }
+      ]
+    },
+    {
+      q: "哪个是你的「必体验」清单？",
+      options: [
+        { text: "看一次日出或日落", scores: { 15:2, 25:2, 26:2, 19:2, 7:1 } },
+        { text: "品尝地道街头小吃", scores: { 2:3, 3:3, 4:2, 22:2, 21:1 } },
+        { text: "穿当地服饰拍照", scores: { 8:2, 9:3, 10:2, 16:3 } },
+        { text: "给朋友寄一张明信片", scores: { 9:2, 13:2, 6:2, 18:1, 5:1 } }
+      ]
+    },
+    {
+      q: "你更喜欢哪种类型的博物馆？",
+      options: [
+        { text: "国家级历史博物馆", scores: { 0:3, 2:3, 20:2, 29:2, 18:1 } },
+        { text: "艺术、设计或当代博物馆", scores: { 1:3, 0:1, 22:1, 13:1 } },
+        { text: "民俗、民族或露天博物馆", scores: { 16:3, 8:2, 9:2, 18:1 } },
+        { text: "科技、自然或地质博物馆", scores: { 12:1, 7:2, 14:2, 26:1, 25:1 } }
+      ]
+    },
+    {
+      q: "你的旅行预算大概在？",
+      options: [
+        { text: "经济实惠，性价比高", scores: { 2:2, 3:2, 18:2, 29:2, 16:2, 27:1 } },
+        { text: "中等舒适，不奢侈", scores: { 5:2, 6:2, 13:2, 17:2, 20:2, 15:1 } },
+        { text: "轻奢享受，偶尔挥霍", scores: { 19:3, 1:3, 28:2, 9:2, 8:1 } },
+        { text: "穷游也能快乐", scores: { 24:2, 26:2, 11:2, 25:2, 16:2 } }
+      ]
+    },
+    {
+      q: "你希望这次旅行能带给你？",
+      options: [
+        { text: "放松与治愈", scores: { 3:2, 8:3, 5:2, 19:3, 6:2, 13:1 } },
+        { text: "刺激与冒险", scores: { 14:3, 26:3, 24:2, 15:2, 25:1 } },
+        { text: "知识与文化积淀", scores: { 0:3, 2:2, 29:3, 12:3, 20:2, 18:1 } },
+        { text: "浪漫与回忆", scores: { 8:3, 9:2, 19:2, 13:2, 28:2 } }
+      ]
+    },
+    {
+      q: "你更喜欢哪种类型的城市或地区？",
+      options: [
+        { text: "一线大都市，繁华便利", scores: { 0:2, 1:3, 22:2, 21:1 } },
+        { text: "历史古都，底蕴深厚", scores: { 2:3, 29:3, 20:2, 18:2, 0:2 } },
+        { text: "民族风情小镇或村寨", scores: { 16:3, 8:2, 9:2, 11:2 } },
+        { text: "自然秘境，远离喧嚣", scores: { 11:3, 26:3, 24:3, 25:2, 14:1 } }
+      ]
+    },
+    {
+      q: "对于拍照，你更看重？",
+      options: [
+        { text: "风景大片，极致光影", scores: { 11:2, 24:2, 26:2, 15:2, 25:2, 7:2, 14:1 } },
+        { text: "城市街拍，人文气息", scores: { 1:2, 4:3, 22:2, 2:1, 20:1 } },
+        { text: "人像美照，精致构图", scores: { 8:2, 9:2, 19:1, 13:1, 6:1, 23:1 } },
+        { text: "可爱萌宠与动物", scores: { 3:3, 24:1 } }
+      ]
+    },
+    {
+      q: "你觉得旅行的意义是？",
+      options: [
+        { text: "发现世界的广阔", scores: { 24:2, 25:2, 26:2, 11:2, 10:2, 12:1 } },
+        { text: "遇见不同的人", scores: { 16:3, 8:1, 3:1, 9:1, 22:1 } },
+        { text: "重新认识自己", scores: { 10:3, 26:2, 12:2, 25:1, 24:1 } },
+        { text: "留下美好的回忆", scores: { 8:2, 9:2, 19:2, 13:1, 5:1 } }
+      ]
+    },
+    {
+      q: "如果只能选一种「水」，你选？",
+      options: [
+        { text: "高原湖泊的纯净", scores: { 25:3, 10:2, 26:2, 11:2 } },
+        { text: "江南的湖光山色", scores: { 5:3, 6:2, 27:1, 20:1 } },
+        { text: "大海的辽阔", scores: { 19:3, 13:2, 17:3, 28:3 } },
+        { text: "江河穿城而过", scores: { 21:2, 4:2, 1:1, 22:1 } }
+      ]
+    },
+    {
+      q: "你对海拔的接受度是？",
+      options: [
+        { text: "越高越好，渴望高原", scores: { 10:3, 26:3, 25:2, 11:1 } },
+        { text: "适中海拔，舒服就好", scores: { 8:2, 9:2, 3:1, 5:1 } },
+        { text: "偏爱平原与低海拔", scores: { 1:2, 6:2, 22:2, 18:1 } },
+        { text: "无所谓，看风景说话", scores: { 14:1, 7:1, 15:1, 24:1 } }
+      ]
+    },
+    {
+      q: "你对人群的容忍度是？",
+      options: [
+        { text: "喜欢热闹，越有人气越好", scores: { 4:3, 3:2, 21:2, 22:2, 2:1 } },
+        { text: "适度人流，别太挤", scores: { 5:2, 6:2, 13:2, 9:2, 0:1 } },
+        { text: "越安静越好", scores: { 11:3, 26:2, 25:2, 24:2, 27:1 } },
+        { text: "无所谓，随缘就好", scores: { 8:1, 15:1, 12:1, 19:1 } }
+      ]
+    },
+    {
+      q: "你是早起派还是夜猫子？",
+      options: [
+        { text: "早起，为了日出和晨雾", scores: { 15:3, 25:2, 26:2, 10:1 } },
+        { text: "夜里才更有活力", scores: { 4:3, 1:2, 22:2, 3:2 } },
+        { text: "中午才起，慢慢来", scores: { 8:3, 9:2, 19:2, 6:1 } },
+        { text: "时间灵活，看安排", scores: { 5:1, 7:1, 24:1, 11:1, 27:1 } }
+      ]
+    },
+    {
+      q: "你的购物偏好更接近？",
+      options: [
+        { text: "文创、书店与设计小店", scores: { 1:2, 6:2, 20:2, 5:2, 9:1 } },
+        { text: "地方特产与美食手信", scores: { 2:2, 3:2, 22:2, 17:1, 29:1 } },
+        { text: "手工艺与民族风物件", scores: { 16:3, 8:2, 10:2, 9:2 } },
+        { text: "不太购物，专注风景", scores: { 24:2, 26:2, 11:2, 25:2, 14:1 } }
+      ]
+    },
+    {
+      q: "你更想看哪种文化演出？",
+      options: [
+        { text: "传统戏曲与古乐", scores: { 6:3, 0:2, 2:2, 20:1 } },
+        { text: "民族歌舞与非遗表演", scores: { 16:3, 10:2, 8:2, 9:2 } },
+        { text: "现代音乐、戏剧与展览", scores: { 1:3, 22:1, 0:1, 23:1 } },
+        { text: "灯光秀与夜景演出", scores: { 4:3, 1:2, 21:2, 17:1 } }
+      ]
+    },
+    {
+      q: "哪段历史最让你心动？",
+      options: [
+        { text: "秦汉唐宋的盛世气象", scores: { 2:3, 29:3, 0:1, 20:1 } },
+        { text: "明清皇家与晋商徽商", scores: { 0:3, 18:3, 6:1 } },
+        { text: "民国与近代风云", scores: { 20:3, 1:2, 21:2, 23:1 } },
+        { text: "边疆丝路与异域文明", scores: { 12:3, 10:2, 11:2, 25:1 } }
+      ]
+    },
+    {
+      q: "你更偏爱哪种建筑风格？",
+      options: [
+        { text: "中式古典与院落", scores: { 0:3, 2:2, 6:2, 18:2, 29:1 } },
+        { text: "现代摩天楼与天际线", scores: { 1:3, 22:2, 21:1 } },
+        { text: "西洋、俄式与殖民地建筑", scores: { 23:3, 17:2, 1:2, 13:1 } },
+        { text: "民族特色民居", scores: { 16:3, 8:2, 10:2, 11:1 } }
+      ]
+    },
+    {
+      q: "你能接受的户外强度是？",
+      options: [
+        { text: "轻松观光，走走看看", scores: { 5:2, 6:2, 13:2, 19:2, 1:1 } },
+        { text: "适度徒步，出汗刚好", scores: { 7:2, 15:2, 14:2, 27:1 } },
+        { text: "高强度徒步与登山", scores: { 26:3, 14:2, 15:2, 25:1 } },
+        { text: "自驾长途，日行千里", scores: { 24:3, 25:3, 11:2, 26:2 } }
+      ]
+    },
+    {
+      q: "你最想带回什么纪念品？",
+      options: [
+        { text: "明信片与文创小物", scores: { 9:2, 13:2, 1:1, 6:1 } },
+        { text: "地方特产与食品", scores: { 2:2, 3:1, 22:2, 17:2 } },
+        { text: "手工艺品与织物", scores: { 16:2, 10:2, 8:2, 18:1 } },
+        { text: "照片与回忆就好", scores: { 24:1, 26:1, 11:1, 15:1 } }
+      ]
+    }
+  ];
+
+  const LETTERS = ["A", "B", "C", "D"];
+  const TOTAL = questions.length;
+
+  let currentIndex = 0;
+  let answers = new Array(TOTAL).fill(null);
+  let scores = new Array(destinations.length).fill(0);
+  let autoJumpTimer = null; // 用于自动跳转的计时器（避免视觉上太突兀）
+
+  const app = document.getElementById("app");
+
+  /* ==================== 计分 ==================== */
+  function computeScores() {
+    const next = new Array(destinations.length).fill(0);
+    answers.forEach(function (optIndex, qIndex) {
+      if (optIndex === null) return;
+      const option = questions[qIndex].options[optIndex];
+      if (!option || !option.scores) return;
+      Object.keys(option.scores).forEach(function (key) {
+        const destIndex = Number(key);
+        const value = option.scores[key];
+        if (destIndex >= 0 && destIndex < next.length && value) {
+          next[destIndex] += value;
+        }
+      });
+    });
+    scores = next;
+  }
+
+  function getTopDestination() {
+    let max = -Infinity;
+    let top = 0;
+    scores.forEach(function (value, index) {
+      if (value > max) {
+        max = value;
+        top = index;
+      }
+    });
+    return destinations[top];
+  }
+
+  /* ==================== 渲染问题 ==================== */
+  function renderQuestion() {
+    // 清除可能存在的自动跳转计时器
+    if (autoJumpTimer) {
+      clearTimeout(autoJumpTimer);
+      autoJumpTimer = null;
+    }
+
+    const question = questions[currentIndex];
+    const selected = answers[currentIndex];
+    const progress = ((currentIndex + 1) / TOTAL) * 100;
+    const isFirst = currentIndex === 0;
+
+    const optionsHtml = question.options.map(function (option, index) {
+      const activeClass = selected === index ? " selected" : "";
+      return (
+        '<button type="button" class="option-btn' + activeClass + '" data-index="' + index + '">' +
+          '<span class="option-letter">' + LETTERS[index] + "</span>" +
+          '<span class="option-text">' + option.text + "</span>" +
+        "</button>"
+      );
+    }).join("");
+
+    app.innerHTML =
+      '<div class="eyebrow">China Travel Match</div>' +
+      "<h1>最适合去中国哪里旅行</h1>" +
+      '<p class="subhead">30 个目的地 · 30 个问题 · 找到与你契合的远方</p>' +
+
+      '<div class="progress-area">' +
+        '<div class="progress-bar-bg"><div class="progress-fill" style="width:' + progress + '%"></div></div>' +
+        '<div class="step-count"><b>' + (currentIndex + 1) + "</b> / " + TOTAL + "</div>" +
+      "</div>" +
+
+      '<div class="question-card">' +
+        '<div class="q-index">Question ' + String(currentIndex + 1).padStart(2, "0") + "</div>" +
+        '<div class="question-text">' + question.q + "</div>" +
+        '<div class="options-grid" id="optionsGrid">' + optionsHtml + "</div>" +
+      "</div>" +
+
+      '<div class="nav-buttons">' +
+        '<button class="btn btn-ghost" id="prevBtn" type="button"' + (isFirst ? " disabled" : "") + ">上一题</button>" +
+      "</div>";
+
+    bindQuestionEvents();
+  }
+
+  /* ==================== 问题页交互（选项选中自动跳转） ==================== */
+  function bindQuestionEvents() {
+    const optionButtons = app.querySelectorAll(".option-btn");
+
+    optionButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const optionIndex = Number(button.dataset.index);
+        // 如果点击的是同一个已选项，也允许重新触发（但一般不用）
+        answers[currentIndex] = optionIndex;
+        computeScores();
+
+        // 视觉反馈：高亮当前选项
+        optionButtons.forEach(function (b) { b.classList.remove("selected"); });
+        button.classList.add("selected");
+
+        // 清除之前的自动跳转计时器，避免快速点击时冲突
+        if (autoJumpTimer) {
+          clearTimeout(autoJumpTimer);
+          autoJumpTimer = null;
+        }
+
+        // 自动跳转：给用户一点点视觉反馈时间（250ms），然后跳转
+        autoJumpTimer = setTimeout(function () {
+          autoJumpTimer = null;
+
+          if (currentIndex === TOTAL - 1) {
+            // 最后一题，直接显示结果
+            renderResult();
+          } else {
+            // 跳转到下一题
+            currentIndex += 1;
+            renderQuestion();
+          }
+        }, 260); // 260ms 微延迟，让用户看到选中效果，同时不觉得卡顿
+      });
+    });
+
+    const prevBtn = document.getElementById("prevBtn");
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function () {
+        // 如果正在等待自动跳转，先清除
+        if (autoJumpTimer) {
+          clearTimeout(autoJumpTimer);
+          autoJumpTimer = null;
+        }
+        if (currentIndex > 0) {
+          currentIndex -= 1;
+          renderQuestion();
+        }
+      });
+    }
+  }
+
+  /* ==================== 渲染结果 ==================== */
+  function renderResult() {
+    computeScores();
+    const destination = getTopDestination();
+
+    const tagsHtml = destination.tags.map(function (tag) {
+      return '<span class="meta-chip">' + tag + "</span>";
+    }).join("");
+
+    app.innerHTML =
+      '<div class="result-section">' +
+        '<div class="result-label">Your Destination</div>' +
+        '<div class="result-place">' + destination.name + "</div>" +
+        '<div class="result-divider"></div>' +
+        '<p class="result-desc">' + destination.description + "</p>" +
+        '<div class="result-meta">' + tagsHtml + "</div>" +
+        '<button class="restart-btn" id="restartBtn" type="button">重新测试</button>' +
+        '<p class="small-note">根据 30 项偏好维度匹配 · 仅供参考与娱乐</p>' +
+      "</div>";
+
+    const restartBtn = document.getElementById("restartBtn");
+    if (restartBtn) {
+      restartBtn.addEventListener("click", function () {
+        currentIndex = 0;
+        answers = new Array(TOTAL).fill(null);
+        scores = new Array(destinations.length).fill(0);
+        if (autoJumpTimer) {
+          clearTimeout(autoJumpTimer);
+          autoJumpTimer = null;
+        }
+        renderQuestion();
+      });
+    }
+  }
+
+  /* ==================== 启动 ==================== */
+  function init() {
+    currentIndex = 0;
+    answers = new Array(TOTAL).fill(null);
+    scores = new Array(destinations.length).fill(0);
+    renderQuestion();
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
